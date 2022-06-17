@@ -2,7 +2,7 @@ import socket
 import threading
 
 # Connection Data
-host = '192.168.86.244'
+host = socket.gethostbyname(socket.gethostname())
 port = 55556
 
 # Starting Server
@@ -16,13 +16,26 @@ server.listen()
 # Lists For Clients and Their Nicknames
 clients = []
 nicknames = []
+print("██████╗██╗  ██╗ █████╗ ████████╗████████╗███████╗██████╗") 
+print("██╔════╝██║  ██║██╔══██╗╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗")
+print("██║     ███████║███████║   ██║      ██║   █████╗  ██████╔╝")
+print("██║     ██╔══██║██╔══██║   ██║      ██║   ██╔══╝  ██╔══██╗")
+print("╚██████╗██║  ██║██║  ██║   ██║      ██║   ███████╗██║  ██║")
+print(" ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝")
+print(" /\   | _  _ _ |   _|_  _ _|_   _ _  _  _  _")
+print("/~~\  |(_)(_(_||  (_| |(_| |   _\(/_|\/(/_|\n")
+print("\nYour local network IP address is {}. \nFor someone to join server, they must use this IP address for client side script.".format(host))
 
 # Sending Messages To All Connected Clients
+
+
 def broadcast(message):
     for client in clients:
         client.send(message)
-        
+
 # Handling Messages From Clients
+
+
 def handle(client):
     while True:
         try:
@@ -38,8 +51,10 @@ def handle(client):
             broadcast('{} left!'.format(nickname).encode('ascii'))
             nicknames.remove(nickname)
             break
-        
+
 # Receiving / Listening Function
+
+
 def receive():
     while True:
         # Accept Connection
@@ -60,5 +75,6 @@ def receive():
         # Start Handling Thread For Client
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
-        
+
+
 receive()
